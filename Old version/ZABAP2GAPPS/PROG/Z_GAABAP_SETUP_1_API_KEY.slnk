@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-16"?>
+<PROG NAME="Z_GAABAP_SETUP_1_API_KEY" VARCL="X" SUBC="1" CNAM="FEMIA" CDAT="20110325" UNAM="FEMIA" UDAT="20110325" VERN="000011" RMAND="001" RLOAD="E" FIXPT="X" SDATE="20110325" STIME="223849" IDATE="20110325" ITIME="223849" UCCHECK="X">
+ <textPool>
+  <language SPRAS="D">
+   <textElement ID="I" KEY="B01" ENTRY="Please enter Consumer data" LENGTH="56 "/>
+   <textElement ID="I" KEY="B02" ENTRY="Only needed for multiple consumer per system" LENGTH="89 "/>
+   <textElement ID="I" KEY="B03" ENTRY="HTTP Method" LENGTH="11 "/>
+   <textElement ID="I" KEY="B04" ENTRY="Signature Method" LENGTH="16 "/>
+   <textElement ID="I" KEY="M01" ENTRY="Keys stored successfully" LENGTH="24 "/>
+   <textElement ID="R" ENTRY="OAuth Setup Step 1: Register Consumer" LENGTH="70 "/>
+   <textElement ID="S" KEY="P_HMAC" ENTRY="        HMAC-SHA1 (e.g. Twitter)" LENGTH="32 "/>
+   <textElement ID="S" KEY="P_HTTP" ENTRY="        HTTP (e.g. Twitter)" LENGTH="27 "/>
+   <textElement ID="S" KEY="P_HTTPS" ENTRY="        HTTPS (e.g. Streamwork)" LENGTH="31 "/>
+   <textElement ID="S" KEY="P_NAME" ENTRY="        Consumer Name (optional)" LENGTH="32 "/>
+   <textElement ID="S" KEY="P_PLAIN" ENTRY="        PLAINTEXT (e.g. Streamwork)" LENGTH="35 "/>
+   <textElement ID="S" KEY="P_KEY" ENTRY="D       ." LENGTH="20 "/>
+   <textElement ID="S" KEY="P_SECRET" ENTRY="D       ." LENGTH="23 "/>
+  </language>
+  <language SPRAS="E">
+   <textElement ID="I" KEY="B01" ENTRY="Please enter Consumer data" LENGTH="56 "/>
+   <textElement ID="I" KEY="B02" ENTRY="Only needed for multiple consumer per system" LENGTH="89 "/>
+   <textElement ID="I" KEY="B03" ENTRY="API protocol" LENGTH="30 "/>
+   <textElement ID="I" KEY="B04" ENTRY="Signature Method" LENGTH="16 "/>
+   <textElement ID="I" KEY="M01" ENTRY="Keys stored successfully" LENGTH="24 "/>
+   <textElement ID="R" LENGTH="37 "/>
+   <textElement ID="S" KEY="P_HMAC" ENTRY="        HMAC-SHA1 (e.g. Twitter)" LENGTH="32 "/>
+   <textElement ID="S" KEY="P_HOST" ENTRY="D       ." LENGTH="16 "/>
+   <textElement ID="S" KEY="P_HTTP" ENTRY="        HTTP (e.g. Twitter)" LENGTH="27 "/>
+   <textElement ID="S" KEY="P_HTTPS" ENTRY="        HTTPS (e.g. Streamwork)" LENGTH="31 "/>
+   <textElement ID="S" KEY="P_KEY" ENTRY="D       ." LENGTH="20 "/>
+   <textElement ID="S" KEY="P_NAME" ENTRY="        Consumer Name (optional)" LENGTH="32 "/>
+   <textElement ID="S" KEY="P_PLAIN" ENTRY="        PLAINTEXT (e.g. Streamwork)" LENGTH="35 "/>
+   <textElement ID="S" KEY="P_SECRET" ENTRY="D       ." LENGTH="23 "/>
+  </language>
+ </textPool>
+ <source>*&amp;---------------------------------------------------------------------*
+*&amp; Report  Z_OAUTH_SETUP_1_API_KEY
+*&amp;
+*&amp;---------------------------------------------------------------------*
+
+*--------------------------------------------------------------------*
+*
+* The OAuth library (Part of &quot;Twibap: The ABAP Twitter API&quot;)
+* Copyright (C) 2010 Uwe Fetzer + SAP Developer Network members
+*
+* Project home: http://twibap.googlecode.com
+*
+* Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*
+*--------------------------------------------------------------------*
+
+*&amp;---------------------------------------------------------------------*
+*&amp;
+*&amp; Step 1:
+*&amp; - register your application (e.g. at http://dev.twitter.com/apps)
+*&amp; - store consumer keys in SAP (this report)
+*&amp;
+*&amp;---------------------------------------------------------------------*
+
+REPORT  z_gaabap_setup_1_api_key.
+
+*--------------------------------------------------------------------*
+SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME TITLE text-b01.
+PARAMETERS: p_key    TYPE zoauth_consumer_key LOWER CASE OBLIGATORY DEFAULT &apos;anonymous&apos;
+          , p_secret TYPE zoauth_consumer_secret LOWER CASE OBLIGATORY DEFAULT &apos;anonymous&apos;
+          , p_host   TYPE zoauth_api_host LOWER CASE OBLIGATORY
+          .
+
+SELECTION-SCREEN SKIP.
+
+&quot;*--- in case of multiple consumer per system (unique consumer name) ---*
+SELECTION-SCREEN BEGIN OF BLOCK b2 WITH FRAME TITLE text-b02.
+PARAMETERS: p_name   TYPE zoauth_consumer_name.
+SELECTION-SCREEN END OF BLOCK b2.
+
+&quot;*--- API protocol ---*
+SELECTION-SCREEN BEGIN OF BLOCK b3 WITH FRAME TITLE text-b03.
+PARAMETERS: p_http  RADIOBUTTON GROUP b3
+          , p_https RADIOBUTTON GROUP b3
+          .
+SELECTION-SCREEN END OF BLOCK b3.
+
+&quot;*--- Signature Method ---*
+SELECTION-SCREEN BEGIN OF BLOCK b4 WITH FRAME TITLE text-b04.
+PARAMETERS: p_hmac   RADIOBUTTON GROUP b4
+          , p_plain  RADIOBUTTON GROUP b4
+          .
+SELECTION-SCREEN END OF BLOCK b4.
+
+SELECTION-SCREEN END OF BLOCK b1.
+*--------------------------------------------------------------------*
+
+DATA: api_protocol     TYPE zoauth_api_protocol
+    , signature_method TYPE zoauth_signature_method
+    .
+
+*--- transform values ---*
+CASE &apos;X&apos;.
+  WHEN p_http.
+    api_protocol = 1.
+  WHEN p_https.
+    api_protocol = 2.
+ENDCASE.
+
+CASE &apos;X&apos;.
+  WHEN p_plain.
+    signature_method = 0.
+  WHEN p_hmac.
+    signature_method = 1.
+ENDCASE.
+
+*--- set consumer key and secret persistant ---*
+zcl_oauth=&gt;set_consumer_pers(
+  consumer_name         = p_name
+  oauth_consumer_key    = p_key
+  oauth_consumer_secret = p_secret
+  signature_method      = signature_method
+  api_host              = p_host
+  api_protocol          = api_protocol
+  ).
+
+MESSAGE &apos;Keys stored successfully&apos;(m01) TYPE &apos;I&apos;.</source>
+</PROG>
