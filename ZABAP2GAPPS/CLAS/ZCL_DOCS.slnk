@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-16"?>
+<CLAS CLSNAME="ZCL_DOCS" VERSION="1" LANGU="E" DESCRIPT="Google Documents Class API" UUID="0202322174CD1ED0A588472C26904FC3" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="FEMIA" CREATEDON="20110611" CHANGEDBY="FEMIA" CHANGEDON="20110830" CHGDANYON="00000000" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="701" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+ <implementing CLSNAME="ZCL_DOCS" REFCLSNAME="ZIF_DOCS" VERSION="1" EXPOSURE="2" STATE="1" AUTHOR="IANNACCI" CREATEDON="20110823" CHANGEDBY="FEMIA" CHANGEDON="20110830" RELTYPE="1"/>
+ <publicSection>class ZCL_DOCS definition
+  public
+  create public .
+
+public section.
+*&quot;* public components of class ZCL_DOCS
+*&quot;* do not include other source files here!!!
+
+  interfaces ZIF_DOCS .
+
+  methods CONSTRUCTOR
+    importing
+      !I_CONSUMER_NAME type ZOAUTH2_CONSUMER_NAME
+      !I_USER_NAME type ZOAUTH2_USER_NAME optional .</publicSection>
+ <protectedSection>protected section.
+*&quot;* protected components of class ZCL_DOCS
+*&quot;* do not include other source files here!!!
+
+  data OAUTH type ref to ZCL_DOCS_GDOC .
+  data CONSUMER_NAME type ZOAUTH2_CONSUMER_NAME .
+  data USER_NAME type ZOAUTH2_USER_NAME .
+
+  methods NEW_DOC_FROM_JSON
+    importing
+      !IP_JSON type STRING
+    returning
+      value(EO_DOC) type ref to ZIF_DOCS .</protectedSection>
+ <privateSection>private section.
+*&quot;* private components of class ZCL_DOCS
+*&quot;* do not include other source files here!!!</privateSection>
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <attribute CLSNAME="ZCL_DOCS" CMPNAME="CONSUMER_NAME" VERSION="1" LANGU="E" DESCRIPT="ZOAuth 2 - Consumer Name" EXPOSURE="1" STATE="1" EDITORDER="2 " AUTHOR="IANNACCI" CREATEDON="20110823" CHANGEDBY="FEMIA" CHANGEDON="20110830" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ZOAUTH2_CONSUMER_NAME" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="701" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZCL_DOCS" CMPNAME="OAUTH" VERSION="1" LANGU="E" DESCRIPT="Class access googlo docs api" EXPOSURE="1" STATE="1" EDITORDER="1 " AUTHOR="IANNACCI" CREATEDON="20110823" CHANGEDBY="FEMIA" CHANGEDON="20110830" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="ZCL_DOCS_GDOC" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="701" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZCL_DOCS" CMPNAME="USER_NAME" VERSION="1" LANGU="E" DESCRIPT="ZOAuth 2 - User Name" EXPOSURE="1" STATE="1" EDITORDER="3 " AUTHOR="IANNACCI" CREATEDON="20110823" CHANGEDBY="FEMIA" CHANGEDON="20110830" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ZOAUTH2_USER_NAME" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="701" TYPESRC_LENG="0 "/>
+ <interfaceMethod CLSNAME="ZCL_DOCS" CPDNAME="ZIF_DOCS~COPY">
+  <source>method ZIF_DOCS~COPY.
+endmethod.</source>
+ </interfaceMethod>
+ <interfaceMethod CLSNAME="ZCL_DOCS" CPDNAME="ZIF_DOCS~GET_LIST">
+  <source>method ZIF_DOCS~GET_LIST.
+
+*  DATA: lo_json_doc TYPE REF TO zcl_json_document,
+*        lo_doc      TYPE REF TO zif_docs.
+*
+*  DATA: lv_json       TYPE string,
+*        lv_json_feed  TYPE string,
+*        lv_json_entry TYPE string.
+*
+*  lv_json = me-&gt;oauth-&gt;get_spreadsheet_list( ).
+*
+*  lo_json_doc = zcl_json_document=&gt;create_with_json( lv_json ).
+*  lv_json_feed = lo_json_doc-&gt;get_value( &apos;feed&apos; ).
+*
+*  lo_json_doc = zcl_json_document=&gt;create_with_json( lv_json_feed ).
+*  lv_json_entry = lo_json_doc-&gt;get_value( &apos;entry&apos; ).
+*
+*  lo_json_doc = zcl_json_document=&gt;create_with_json( lv_json_entry ).
+*
+*  WHILE lo_json_doc-&gt;get_next( ) IS NOT INITIAL.
+*
+*    lv_json = lo_json_doc-&gt;get_json( ).
+*
+*    lo_doc = me-&gt;new_doc_from_json( lv_json ).
+*    me-&gt;zif_docs~doc_list-&gt;add( lo_doc ).
+*  ENDWHILE.
+
+endmethod.</source>
+ </interfaceMethod>
+ <interfaceMethod CLSNAME="ZCL_DOCS" CPDNAME="ZIF_DOCS~UPLOAD">
+  <source>method ZIF_DOCS~UPLOAD.
+endmethod.</source>
+ </interfaceMethod>
+ <method CLSNAME="ZCL_DOCS" CMPNAME="CONSTRUCTOR" VERSION="1" LANGU="E" DESCRIPT="CONSTRUCTOR" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="IANNACCI" CREATEDON="20110823" CHANGEDBY="FEMIA" CHANGEDON="20110830" MTDTYPE="2" MTDDECLTYP="0" R3RELEASE="701" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCL_DOCS" CMPNAME="CONSTRUCTOR" SCONAME="I_CONSUMER_NAME" VERSION="1" LANGU="E" DESCRIPT="ZOAuth 2 - Consumer Name" CMPTYPE="1" MTDTYPE="2" EDITORDER="1 " DISPID="0 " AUTHOR="IANNACCI" CREATEDON="20110823" CHANGEDBY="FEMIA" CHANGEDON="20110830" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ZOAUTH2_CONSUMER_NAME"/>
+  <parameter CLSNAME="ZCL_DOCS" CMPNAME="CONSTRUCTOR" SCONAME="I_USER_NAME" VERSION="1" LANGU="E" DESCRIPT="ZOAuth 2 - User Name" CMPTYPE="1" MTDTYPE="2" EDITORDER="2 " DISPID="0 " AUTHOR="IANNACCI" CREATEDON="20110823" CHANGEDBY="FEMIA" CHANGEDON="20110830" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ZOAUTH2_USER_NAME" PAROPTIONL="X"/>
+  <source>method CONSTRUCTOR.
+
+  me-&gt;consumer_name = i_consumer_name.
+  me-&gt;user_name     = i_user_name.
+
+  &quot; creates Oauth object
+  CREATE OBJECT me-&gt;oauth
+    EXPORTING
+      i_consumer_name = i_consumer_name
+      i_user_name     = i_user_name.
+
+  CREATE OBJECT me-&gt;zif_docs~doc_list.
+
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZCL_DOCS" CMPNAME="NEW_DOC_FROM_JSON" VERSION="1" LANGU="E" DESCRIPT="Parse json document" EXPOSURE="1" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="IANNACCI" CREATEDON="20110823" CHANGEDBY="FEMIA" CHANGEDON="20110830" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="701" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCL_DOCS" CMPNAME="NEW_DOC_FROM_JSON" SCONAME="IP_JSON" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="IANNACCI" CREATEDON="20110823" CHANGEDBY="FEMIA" CHANGEDON="20110830" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING"/>
+  <parameter CLSNAME="ZCL_DOCS" CMPNAME="NEW_DOC_FROM_JSON" SCONAME="EO_DOC" VERSION="1" LANGU="E" DESCRIPT="Interface: Google Document" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="IANNACCI" CREATEDON="20110823" CHANGEDBY="FEMIA" CHANGEDON="20110830" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="ZIF_DOCS"/>
+  <source>method NEW_DOC_FROM_JSON.
+
+  DATA: lo_json_doc           TYPE REF TO zcl_json_document,
+        lo_json_element       TYPE REF TO zcl_json_document,
+        lo_doc                TYPE REF TO zif_docs,
+        ls_author             TYPE zdocs_author,
+        ls_category           TYPE zdocs_category,
+        ls_link               TYPE zdocs_link,
+        ls_link_alternate     TYPE zdocs_link,
+        ls_link_self          TYPE zdocs_link,
+        ls_link_temp          TYPE zdocs_link,
+        lv_json               TYPE string,
+        lv_gdsetag            TYPE string,
+        lv_id                 TYPE string,
+        lv_updated            TYPE string,
+        lv_category           TYPE string,
+        lv_category_scheme    TYPE string,
+        lv_category_term      TYPE string,
+        lv_title              TYPE string,
+        lv_content            TYPE string,
+        lv_src                TYPE string,
+        lv_link               TYPE string,
+        lv_link_rel           TYPE string,
+        lv_link_type          TYPE string,
+        lv_link_href          TYPE string,
+        lv_author             TYPE string,
+        lv_author_name        TYPE string,
+        lv_author_email       TYPE string.
+
+
+  lo_json_doc = zcl_json_document=&gt;create_with_json( ip_json ).
+
+  &quot; Parse basic data
+  lv_gdsetag    = lo_json_doc-&gt;get_value( &apos;gd$etag&apos; ).
+  lv_id         = lo_json_doc-&gt;get_value( &apos;id&apos; ).
+  lv_updated    = lo_json_doc-&gt;get_value( &apos;updated&apos; ).
+  lv_category   = lo_json_doc-&gt;get_value( &apos;category&apos; ).
+  lv_title      = lo_json_doc-&gt;get_value( &apos;title&apos; ).
+  lv_content    = lo_json_doc-&gt;get_value( &apos;content&apos; ).
+  lv_src        = lo_json_doc-&gt;get_value( &apos;src&apos; ).
+  lv_link       = lo_json_doc-&gt;get_value( &apos;link&apos; ).
+  lv_author     = lo_json_doc-&gt;get_value( &apos;author&apos; ).
+
+  &quot;Parse id
+  lo_json_doc = zcl_json_document=&gt;create_with_json( lv_id ).
+  lv_id = lo_json_doc-&gt;get_value( &apos;$t&apos; ).
+
+  &quot;Parse updated
+  lo_json_doc = zcl_json_document=&gt;create_with_json( lv_updated ).
+  lv_updated = lo_json_doc-&gt;get_value( &apos;$t&apos; ).
+  REPLACE ALL OCCURRENCES OF &apos;-&apos; IN lv_updated WITH &apos;&apos;.
+  REPLACE ALL OCCURRENCES OF &apos;:&apos; IN lv_updated WITH &apos;&apos;.
+  REPLACE ALL OCCURRENCES OF &apos;Z&apos; IN lv_updated WITH &apos;&apos;.
+  REPLACE ALL OCCURRENCES OF &apos;T&apos; IN lv_updated WITH &apos;&apos;.
+
+  &quot;Parse title
+  lo_json_doc = zcl_json_document=&gt;create_with_json( lv_title ).
+  lv_title = lo_json_doc-&gt;get_value( &apos;$t&apos; ).
+
+  &quot;Parse content
+  lo_json_doc = zcl_json_document=&gt;create_with_json( lv_content ).
+  lv_content = lo_json_doc-&gt;get_value( &apos;type&apos; ).
+
+  &quot;Parse category
+  lo_json_doc = zcl_json_document=&gt;create_with_json( lv_category ).
+  WHILE lo_json_doc-&gt;get_next( ) IS NOT INITIAL.
+    lv_json               = lo_json_doc-&gt;get_json( ).
+    lo_json_element       = zcl_json_document=&gt;create_with_json( lv_json ).
+    lv_category_scheme    = lo_json_element-&gt;get_value( &apos;scheme&apos; ).
+    lv_category_term      = lo_json_element-&gt;get_value( &apos;term&apos; ).
+    ls_category-scheme  = lv_category_scheme.
+    ls_category-term    = lv_category_term.
+  ENDWHILE.
+
+  &quot;Parse link
+  lo_json_doc = zcl_json_document=&gt;create_with_json( lv_link ).
+  WHILE lo_json_doc-&gt;get_next( ) IS NOT INITIAL.
+    lv_json               = lo_json_doc-&gt;get_json( ).
+    lo_json_element       = zcl_json_document=&gt;create_with_json( lv_json ).
+    lv_link_rel           = lo_json_element-&gt;get_value( &apos;rel&apos; ).
+    lv_link_type          = lo_json_element-&gt;get_value( &apos;type&apos; ).
+    lv_link_href          = lo_json_element-&gt;get_value( &apos;href&apos; ).
+    ls_link_temp-rel   = lv_link_rel.
+    ls_link_temp-type  = lv_link_type.
+    ls_link_temp-href  = lv_link_href.
+    CASE lv_link_rel.
+      WHEN &apos;alternate&apos;.
+        ls_link_alternate = ls_link_temp.
+      WHEN &apos;self&apos;.
+        ls_link_self      = ls_link_temp.
+      WHEN OTHERS.
+        ls_link           = ls_link_temp.
+    ENDCASE.
+    CLEAR ls_link_temp.
+  ENDWHILE.
+
+  &quot;Parse author
+  lo_json_doc = zcl_json_document=&gt;create_with_json( lv_author ).
+  WHILE lo_json_doc-&gt;get_next( ) IS NOT INITIAL.
+    lv_json               = lo_json_doc-&gt;get_json( ).
+    lo_json_element       = zcl_json_document=&gt;create_with_json( lv_json ).
+    lv_author_name        = lo_json_element-&gt;get_value( &apos;name&apos; ).
+    lv_author_email       = lo_json_element-&gt;get_value( &apos;email&apos; ).
+    ls_author-name  = lv_author_name.
+    ls_author-email = lv_author_email.
+  ENDWHILE.
+
+  CREATE OBJECT eo_doc TYPE zcl_docs
+    EXPORTING
+      i_consumer_name = me-&gt;consumer_name
+      i_user_name     = me-&gt;user_name.
+
+  eo_doc-&gt;gdsetag         = lv_gdsetag.
+  eo_doc-&gt;id              = lv_id.
+  eo_doc-&gt;updated         = lv_updated.
+  eo_doc-&gt;category        = ls_category.
+  eo_doc-&gt;title           = lv_title.
+  eo_doc-&gt;content         = lv_content.
+  eo_doc-&gt;src             = lv_src.
+  eo_doc-&gt;link            = ls_link.
+  eo_doc-&gt;link_alternate  = ls_link_alternate.
+  eo_doc-&gt;link_self       = ls_link_self.
+  eo_doc-&gt;author          = ls_author.
+
+endmethod.</source>
+ </method>
+</CLAS>

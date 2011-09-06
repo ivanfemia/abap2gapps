@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-16"?>
+<PROG NAME="ZGAPPS_GET_DOCS_LIST" VARCL="X" SUBC="1" CNAM="FEMIA" CDAT="20110611" UNAM="FEMIA" UDAT="20110830" VERN="000018" RMAND="001" RLOAD="E" FIXPT="X" SDATE="20110830" STIME="221721" IDATE="20110830" ITIME="221721" UCCHECK="X">
+ <textPool>
+  <language SPRAS="E">
+   <textElement ID="R" ENTRY="Get Spreadsheet list" LENGTH="20 "/>
+  </language>
+ </textPool>
+ <source>*&amp;---------------------------------------------------------------------*
+*&amp; Report  ZGAPPS_GET_DOCS_LIST
+*&amp;
+*&amp;---------------------------------------------------------------------*
+*&amp;
+*&amp;
+*&amp;---------------------------------------------------------------------*
+
+REPORT  zgapps_get_docs_list.
+
+DATA: lo_spreadsheet      TYPE REF TO zcl_docs_spreadsheet,
+      lo_spreadsheet_item TYPE REF TO zcl_docs_spreadsheet,
+      lo_iterator         TYPE REF TO cl_object_collection_iterator.
+
+PARAMETERS: consumer  TYPE  zoauth2_consumer_name,
+            username  TYPE  zoauth2_user_name.
+
+START-OF-SELECTION.
+
+  CREATE OBJECT lo_spreadsheet
+    EXPORTING
+      i_consumer_name = consumer
+      i_user_name     = username.
+
+  lo_spreadsheet-&gt;zif_docs~get_list( ).
+
+  lo_iterator = lo_spreadsheet-&gt;zif_docs~doc_list-&gt;get_iterator( ).
+  WHILE lo_iterator-&gt;if_object_collection_iterator~has_next( ) EQ abap_true.
+    lo_spreadsheet_item ?= lo_iterator-&gt;if_object_collection_iterator~get_next( ).
+    WRITE lo_spreadsheet_item-&gt;zif_docs~title.
+    SKIP 1.
+  ENDWHILE.</source>
+</PROG>
