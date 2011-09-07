@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-16"?>
-<PROG NAME="ZGAPPS_UPLOAD" VARCL="X" SUBC="1" CNAM="IANNACCI" CDAT="20110620" UNAM="FEMIA" UDAT="20110830" VERN="000046" RMAND="001" RLOAD="E" FIXPT="X" SDATE="20110830" STIME="221721" IDATE="20110830" ITIME="221721" UCCHECK="X">
+<PROG NAME="ZGAPPS_UPLOAD" VARCL="X" SUBC="1" CNAM="IANNACCI" CDAT="20110620" UNAM="FEMIA" UDAT="20110907" VERN="000047" RMAND="001" RLOAD="E" FIXPT="X" SDATE="20110907" STIME="215135" IDATE="20110907" ITIME="215135" UCCHECK="X">
  <textPool>
   <language SPRAS="E">
    <textElement ID="R" ENTRY="Report ZGAPPS_UPLOAD" LENGTH="20 "/>
@@ -21,8 +21,12 @@ DATA: lv_file_separator TYPE c,
 CONSTANTS: lv_default_file_name TYPE string VALUE &apos;test.xlsx&apos;.
 
 PARAMETERS: lv_wkdir  TYPE string.
-PARAMETERS: consumer  TYPE  zoauth2_consumer_name default &apos;ABAP2GAPPSCI3&apos;,
-            username  TYPE  zoauth2_user_name default &apos;TEST01&apos;.
+PARAMETERS: consumer  TYPE zoauth2_consumer_name,
+            username  TYPE zoauth2_user_name,
+            proxyhst  TYPE string,
+            proxysrv  TYPE string,
+            ssl_id    TYPE ssfapplssl DEFAULT &apos;ANONYM&apos;.
+
 
 
 AT SELECTION-SCREEN ON VALUE-REQUEST FOR lv_wkdir.
@@ -87,6 +91,14 @@ data: ls_string type string.
             EXPORTING
               i_consumer_name = consumer
               i_user_name     = username.
+
+  CREATE OBJECT lo_spreadsheet
+    EXPORTING
+      i_consumer_name = consumer
+      i_user_name     = username
+      i_proxy_host    = proxyhst
+      i_proxy_service = proxysrv
+      i_ssl_id        = ssl_id.
 
           lo_spreadsheet-&gt;zif_docs~UPLOAD(  I_DOCUMENT = excel_data
                I_TITLE = &apos;demo1&apos; I_SIZE = lv_filelength ).

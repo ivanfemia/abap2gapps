@@ -5,32 +5,38 @@
   public
   create public .
 
-public section.
 *&quot;* public components of class ZCL_DOCS
 *&quot;* do not include other source files here!!!
+public section.
 
   interfaces ZIF_DOCS .
 
   methods CONSTRUCTOR
     importing
       !I_CONSUMER_NAME type ZOAUTH2_CONSUMER_NAME
-      !I_USER_NAME type ZOAUTH2_USER_NAME optional .</publicSection>
- <protectedSection>protected section.
-*&quot;* protected components of class ZCL_DOCS
+      !I_USER_NAME type ZOAUTH2_USER_NAME optional
+      !I_PROXY_HOST type STRING optional
+      !I_PROXY_SERVICE type STRING optional
+      !I_SSL_ID type SSFAPPLSSL optional .</publicSection>
+ <protectedSection>*&quot;* protected components of class ZCL_DOCS
 *&quot;* do not include other source files here!!!
+protected section.
 
   data OAUTH type ref to ZCL_DOCS_GDOC .
   data CONSUMER_NAME type ZOAUTH2_CONSUMER_NAME .
   data USER_NAME type ZOAUTH2_USER_NAME .
+  data PROXY_HOST type STRING .
+  data PROXY_SERVICE type STRING .
+  data SSL_ID type SSFAPPLSSL .
 
   methods NEW_DOC_FROM_JSON
     importing
       !IP_JSON type STRING
     returning
       value(EO_DOC) type ref to ZIF_DOCS .</protectedSection>
- <privateSection>private section.
-*&quot;* private components of class ZCL_DOCS
-*&quot;* do not include other source files here!!!</privateSection>
+ <privateSection>*&quot;* private components of class ZCL_DOCS
+*&quot;* do not include other source files here!!!
+private section.</privateSection>
  <localImplementation>*&quot;* use this source file for the definition and implementation of
 *&quot;* local helper classes, interface definitions and type
 *&quot;* declarations</localImplementation>
@@ -41,6 +47,9 @@ public section.
 *&quot;* in the implementation part of the class</localMacros>
  <attribute CLSNAME="ZCL_DOCS" CMPNAME="CONSUMER_NAME" VERSION="1" LANGU="E" DESCRIPT="ZOAuth 2 - Consumer Name" EXPOSURE="1" STATE="1" EDITORDER="2 " AUTHOR="IANNACCI" CREATEDON="20110823" CHANGEDBY="FEMIA" CHANGEDON="20110830" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ZOAUTH2_CONSUMER_NAME" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="701" TYPESRC_LENG="0 "/>
  <attribute CLSNAME="ZCL_DOCS" CMPNAME="OAUTH" VERSION="1" LANGU="E" DESCRIPT="Class access googlo docs api" EXPOSURE="1" STATE="1" EDITORDER="1 " AUTHOR="IANNACCI" CREATEDON="20110823" CHANGEDBY="FEMIA" CHANGEDON="20110830" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="ZCL_DOCS_GDOC" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="701" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZCL_DOCS" CMPNAME="PROXY_HOST" VERSION="1" LANGU="E" DESCRIPT="Proxy host" EXPOSURE="1" STATE="1" EDITORDER="4 " AUTHOR="FEMIA" CREATEDON="20110907" CHANGEDON="00000000" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="701" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZCL_DOCS" CMPNAME="PROXY_SERVICE" VERSION="1" LANGU="E" DESCRIPT="Proxy service" EXPOSURE="1" STATE="1" EDITORDER="5 " AUTHOR="FEMIA" CREATEDON="20110907" CHANGEDON="00000000" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="701" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZCL_DOCS" CMPNAME="SSL_ID" VERSION="1" LANGU="E" DESCRIPT="SSL Client Identity" EXPOSURE="1" STATE="1" EDITORDER="6 " AUTHOR="FEMIA" CREATEDON="20110907" CHANGEDON="00000000" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SSFAPPLSSL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="701" TYPESRC_LENG="0 "/>
  <attribute CLSNAME="ZCL_DOCS" CMPNAME="USER_NAME" VERSION="1" LANGU="E" DESCRIPT="ZOAuth 2 - User Name" EXPOSURE="1" STATE="1" EDITORDER="3 " AUTHOR="IANNACCI" CREATEDON="20110823" CHANGEDBY="FEMIA" CHANGEDON="20110830" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ZOAUTH2_USER_NAME" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="701" TYPESRC_LENG="0 "/>
  <interfaceMethod CLSNAME="ZCL_DOCS" CPDNAME="ZIF_DOCS~COPY">
   <source>method ZIF_DOCS~COPY.
@@ -83,20 +92,29 @@ endmethod.</source>
  <method CLSNAME="ZCL_DOCS" CMPNAME="CONSTRUCTOR" VERSION="1" LANGU="E" DESCRIPT="CONSTRUCTOR" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="IANNACCI" CREATEDON="20110823" CHANGEDBY="FEMIA" CHANGEDON="20110830" MTDTYPE="2" MTDDECLTYP="0" R3RELEASE="701" BCMTDCAT="00" BCMTDSYN="0">
   <parameter CLSNAME="ZCL_DOCS" CMPNAME="CONSTRUCTOR" SCONAME="I_CONSUMER_NAME" VERSION="1" LANGU="E" DESCRIPT="ZOAuth 2 - Consumer Name" CMPTYPE="1" MTDTYPE="2" EDITORDER="1 " DISPID="0 " AUTHOR="IANNACCI" CREATEDON="20110823" CHANGEDBY="FEMIA" CHANGEDON="20110830" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ZOAUTH2_CONSUMER_NAME"/>
   <parameter CLSNAME="ZCL_DOCS" CMPNAME="CONSTRUCTOR" SCONAME="I_USER_NAME" VERSION="1" LANGU="E" DESCRIPT="ZOAuth 2 - User Name" CMPTYPE="1" MTDTYPE="2" EDITORDER="2 " DISPID="0 " AUTHOR="IANNACCI" CREATEDON="20110823" CHANGEDBY="FEMIA" CHANGEDON="20110830" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ZOAUTH2_USER_NAME" PAROPTIONL="X"/>
-  <source>method CONSTRUCTOR.
+  <parameter CLSNAME="ZCL_DOCS" CMPNAME="CONSTRUCTOR" SCONAME="I_PROXY_HOST" VERSION="1" LANGU="E" DESCRIPT="Proxy host" CMPTYPE="1" MTDTYPE="2" EDITORDER="3 " DISPID="0 " AUTHOR="FEMIA" CREATEDON="20110907" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING" PAROPTIONL="X"/>
+  <parameter CLSNAME="ZCL_DOCS" CMPNAME="CONSTRUCTOR" SCONAME="I_PROXY_SERVICE" VERSION="1" LANGU="E" DESCRIPT="Proxy service" CMPTYPE="1" MTDTYPE="2" EDITORDER="4 " DISPID="0 " AUTHOR="FEMIA" CREATEDON="20110907" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING" PAROPTIONL="X"/>
+  <parameter CLSNAME="ZCL_DOCS" CMPNAME="CONSTRUCTOR" SCONAME="I_SSL_ID" VERSION="1" LANGU="E" DESCRIPT="SSL Client Identity" CMPTYPE="1" MTDTYPE="2" EDITORDER="5 " DISPID="0 " AUTHOR="FEMIA" CREATEDON="20110907" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SSFAPPLSSL" PAROPTIONL="X"/>
+  <source>METHOD constructor.
 
   me-&gt;consumer_name = i_consumer_name.
   me-&gt;user_name     = i_user_name.
+  me-&gt;proxy_host    = i_proxy_host.
+  me-&gt;proxy_service = i_proxy_service.
+  me-&gt;ssl_id        = i_ssl_id.
 
   &quot; creates Oauth object
   CREATE OBJECT me-&gt;oauth
     EXPORTING
       i_consumer_name = i_consumer_name
-      i_user_name     = i_user_name.
+      i_user_name     = i_user_name
+      i_proxy_host    = i_proxy_host
+      i_proxy_service = i_proxy_service
+      i_ssl_id        = i_ssl_id.
 
   CREATE OBJECT me-&gt;zif_docs~doc_list.
 
-endmethod.</source>
+ENDMETHOD.</source>
  </method>
  <method CLSNAME="ZCL_DOCS" CMPNAME="NEW_DOC_FROM_JSON" VERSION="1" LANGU="E" DESCRIPT="Parse json document" EXPOSURE="1" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="IANNACCI" CREATEDON="20110823" CHANGEDBY="FEMIA" CHANGEDON="20110830" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="701" BCMTDCAT="00" BCMTDSYN="0">
   <parameter CLSNAME="ZCL_DOCS" CMPNAME="NEW_DOC_FROM_JSON" SCONAME="IP_JSON" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="IANNACCI" CREATEDON="20110823" CHANGEDBY="FEMIA" CHANGEDON="20110830" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING"/>

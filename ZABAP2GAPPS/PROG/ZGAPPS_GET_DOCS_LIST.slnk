@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-16"?>
-<PROG NAME="ZGAPPS_GET_DOCS_LIST" VARCL="X" SUBC="1" CNAM="FEMIA" CDAT="20110611" UNAM="FEMIA" UDAT="20110830" VERN="000018" RMAND="001" RLOAD="E" FIXPT="X" SDATE="20110830" STIME="221721" IDATE="20110830" ITIME="221721" UCCHECK="X">
+<PROG NAME="ZGAPPS_GET_DOCS_LIST" VARCL="X" SUBC="1" CNAM="FEMIA" CDAT="20110611" UNAM="FEMIA" UDAT="20110907" VERN="000020" RMAND="001" RLOAD="E" FIXPT="X" SDATE="20110907" STIME="214909" IDATE="20110907" ITIME="214909" UCCHECK="X">
  <textPool>
   <language SPRAS="E">
    <textElement ID="R" ENTRY="Get Spreadsheet list" LENGTH="20 "/>
+   <textElement ID="S" KEY="CONSUMER" ENTRY="        Consumer name" LENGTH="21 "/>
+   <textElement ID="S" KEY="PROXYHST" ENTRY="        Proxy host" LENGTH="18 "/>
+   <textElement ID="S" KEY="PROXYSRV" ENTRY="        Proxy service" LENGTH="21 "/>
+   <textElement ID="S" KEY="SSL_ID" ENTRY="D       ." LENGTH="9 "/>
+   <textElement ID="S" KEY="USERNAME" ENTRY="D       ." LENGTH="9 "/>
   </language>
  </textPool>
  <source>*&amp;---------------------------------------------------------------------*
@@ -19,15 +24,21 @@ DATA: lo_spreadsheet      TYPE REF TO zcl_docs_spreadsheet,
       lo_spreadsheet_item TYPE REF TO zcl_docs_spreadsheet,
       lo_iterator         TYPE REF TO cl_object_collection_iterator.
 
-PARAMETERS: consumer  TYPE  zoauth2_consumer_name,
-            username  TYPE  zoauth2_user_name.
+PARAMETERS: consumer      TYPE zoauth2_consumer_name,
+            username      TYPE zoauth2_user_name,
+            proxyhst      TYPE string,
+            proxysrv      TYPE string,
+            ssl_id        TYPE ssfapplssl DEFAULT &apos;ANONYM&apos;.
 
 START-OF-SELECTION.
 
   CREATE OBJECT lo_spreadsheet
     EXPORTING
       i_consumer_name = consumer
-      i_user_name     = username.
+      i_user_name     = username
+      i_proxy_host    = proxyhst
+      i_proxy_service = proxysrv
+      i_ssl_id        = ssl_id.
 
   lo_spreadsheet-&gt;zif_docs~get_list( ).
 
