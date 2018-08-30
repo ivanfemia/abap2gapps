@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_INTF" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOINTERF>
+    <CLSNAME>ZIF_DOCS</CLSNAME>
+    <VERSION>1</VERSION>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Interface: Google Document</DESCRIPT>
+    <EXPOSURE>2</EXPOSURE>
+    <STATE>1</STATE>
+    <UNICODE>X</UNICODE>
+   </VSEOINTERF>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>AUTHOR</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Spreadsheet author</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>CATEGORY</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Spreadsheet category</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>CONTENT</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Spreadsheet content</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>CONTENT_BINARY</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>SOLIX as Table Type</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>CONTENT_XSTRING</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>XString content</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>COPY</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Copy an existing document</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>DELETE</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Delete an existing document</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>DOC_LIST</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Spreadsheet collection</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>DOWNLOAD</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Download an existing document</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>GDSETAG</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Document gd$etag</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>GET_LIST</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Get document Lsit</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>ID</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Spreasheet ID</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>LINK</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Spreadsheet link</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>LINK_ALTERNATE</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Spreadsheet link</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>LINK_SELF</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Spreadsheet link</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>RENAME</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Rename an existing document</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>SET_CONTENTB</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Set document content as binary</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>SET_CONTENTX</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Set document content as xstring</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>SRC</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Document src</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>TITLE</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Spreadsheet title</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>UPDATED</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>UTC Time Stamp in Long Form (YYYYMMDDhhmmssmmmuuun)</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DOCS</CLSNAME>
+     <CMPNAME>UPLOAD</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Upload a new document</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>
